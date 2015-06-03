@@ -1,11 +1,3 @@
-//
-//  memsys.h
-//  MemoryManagement
-//
-//  Created by 刘 照阁 on 15/6/3.
-//  Copyright (c) 2015年 Crmson's Code Project. All rights reserved.
-//
-
 #ifndef __MemoryManagement__memsys__
 #define __MemoryManagement__memsys__
 
