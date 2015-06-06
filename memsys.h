@@ -58,7 +58,7 @@ namespace mainsys{ //主系统变量空间
         void insertBlock(MemBlock *block); //工具：向管理树中添加首地址为block的节点
         void deleteBlock(MemBlock *block); //工具：从管理树中删除首地址为block的节点
     public:
-        MemPackage *next; //内存包的下一个节点地址
+        MemPackage *next,**pre; //内存包的下一个节点地址、上一个节点地址
         void *getBlock(unsigned int request);
         void callBlock(MemBlock *target);
     };
