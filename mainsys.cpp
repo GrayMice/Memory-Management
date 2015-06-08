@@ -20,8 +20,6 @@ MemPackage::MemPackage(unsigned int request) :TotalInfo(request + SIZE_BLOCK_M)	
 	headSpace->usedSize = 0;
 }
 
-MemPackage
-
 void* MemPackage::getBlock(unsigned int request)
 {
 	void *user = nullptr;

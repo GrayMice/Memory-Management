@@ -21,5 +21,9 @@ void* Sys::allocate(unsigned int request){
     if(present==nullptr){
         
     }
+	space = present->mainSys.getBlock(request);
+	space = present->subSys.getBlock(request);
     return space;
 }
+
+void Sys::remove(){free(present);}
