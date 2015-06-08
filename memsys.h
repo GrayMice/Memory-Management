@@ -12,6 +12,7 @@ namespace sys{ //系统全局变量空间
         unsigned int getSize(unsigned int size)const; //获取空间大小
         void setSize(unsigned int &size,unsigned int value); //设置空间大小
         Info(unsigned int &size,unsigned int value=0);
+		virtual ~Info() = 0;
     };
     
     class TotalInfo:virtual public Info{ //总大小基类

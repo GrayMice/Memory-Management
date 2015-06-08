@@ -27,3 +27,12 @@ void* Sys::allocate(unsigned int request){
 }
 
 void Sys::remove(){free(present);}
+
+void Sys::free(void *target)
+{
+	bool *p = (bool*)target + 1;
+	if (*p)
+		present->mainSys.callbackBlock(target);
+	else
+		present->subSys.callbackBlock(target);
+}
