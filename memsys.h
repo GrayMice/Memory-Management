@@ -51,16 +51,17 @@ namespace mainsys{ //主系统变量空间
     
     class MemPackage: public sys::TotalInfo, public sys::UsedInfo, public sys::BlockManagement<MemBlock>{ //主系统内存包
     private:
-        MemBlock *headSpace,rootTree; //管理域首地址、管理树根节点首地址
+        MemBlock *headSpace,*rootTree;	//管理域首地址、管理树根节点首地址
         MemBlock *divideBlock(MemBlock *target); //工具：分割首地址为target的内存块，第一块管理空间大小为usedSize，第二块管理空间大小为(target->totalSize)-(target->usedSize)
         MemBlock *mergeBlock(MemBlock *target); //工具：合并首地址为target的内存块前后相邻的空闲内存块
         MemBlock *mergeBlock(MemBlock *target,bool direction); //工具：合并首地址为target的内存块，若direction为true则向前合并，若为false则向后合并
         void insertBlock(MemBlock *block); //工具：向管理树中添加首地址为block的节点
         void deleteBlock(MemBlock *block); //工具：从管理树中删除首地址为block的节点
     public:
-        MemPackage *next,**pre; //内存包的下一个节点地址、上一个节点地址
-        void *getBlock(unsigned int request);
-        void callBlock(MemBlock *target);
+		MemPackage(unsigned int request= PACKAGE_SIZE);	//构造函数
+        MemPackage *next,*pre; //内存包的下一个节点地址、上一个节点地址
+        virtual void *getBlock(unsigned int request );
+        virtual void callBlock(MemBlock *target);
     };
     
     class MainSys: public sys::TotalInfo, public sys::UsedInfo, public sys::BlockManagement<void>{ //主管理系统类
@@ -68,10 +69,11 @@ namespace mainsys{ //主系统变量空间
         MemPackage *latestPackage; //索引表最后一项的地址
         MemPackage *headPackage; //索引表第一项的地址
     public:
+		MainSys();
         void addPackageNode(unsigned int packageSize=PACKAGE_SIZE); //内部接口：添加包节点（默认大小为PACKAGE_SIZE）
         void deletePackageNode(MemPackage *packageNode); //内部接口：删除包节点
-        void *getBlock(unsigned int request);
-        void callbackBlock(void *target);
+        virtual void *getBlock(unsigned int request);
+        virtual void callbackBlock(void *target);
     };
 }
 
@@ -84,8 +86,8 @@ namespace subsys{ //辅助系统变量空间
     private:
         SubBlock *bolckList[SIZE_LEVEL+1]; //散列表表头
     public:
-        void *getBlock(unsigned int request);
-        void callbackBlock(void *target);
+        virtual void *getBlock(unsigned int request);
+        virtual void callbackBlock(void *target);
     };
 }
 
